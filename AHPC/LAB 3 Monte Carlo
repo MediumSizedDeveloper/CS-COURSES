@@ -1,1 +1,38 @@
+Implement Monte Carlo algorithm to get the value of π as we described in the class. Attached is one implementation of Monte Carlo algorithm to get the value of π. 
+Write your own program as we studied in the class. Please submit your program, script file, and output.
 
+
+Here are some notes from Notion
+-start-
+**Abstract:**
+
+Given a circle and a square such that the square perfectly holds the circle or the circle perfectly fills the square, the ratio of a square with an area of 2x2 is given by 
+
+$$
+\frac{AreaOfCircle}{AreaOfSquare} = \frac{\pi^2}{2*2} = \frac{\pi}{4}
+$$
+
+Monte Carlo will choose some points within the square at random, where a score is kept to see how many points will be in the circle versus the parts of of the square that isn’t covered by the circle.
+
+**Using interals:**
+
+One quadrant of the square can be described by an intergral
+
+Where the (x,y) coordinates are between 0 and 1. To tell if the point is within the circle, understand this:
+
+Meaning if the sum of the squares of x and its respective y is less than or equal to 1, then it is within the circle, that is:
+
+**Better Alternative:**
+
+Choose random values of x to compute f(x) and sum the values of f(x), providing:
+
+![image.png](attachment:094eceef-a06c-4425-b461-ce9be9fcb9fa:image.png)
+
+Where Xr is randomnly selected between X1 and X2
+
+Question:
+
+- The example integral in the slides doesn’t seem to match with the sequential code. Confused about the random selection of xr.
+    - Answer: the more random points (xr) are selected withing that range, the higher accuracy of the area
+
+-end-
