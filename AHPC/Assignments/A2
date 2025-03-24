@@ -1,1 +1,11 @@
+1.) Complete the parallel pseudocode given in the following divide-and-conquer method for all eight processors
 
+2.) Develop a divide-and-conquer algorithm that finds the smallest value in a set of n values in O(logn) steps using n/2 processors. What is the time complexity?
+
+3.) Design an algorithm to find the sum of n numbers in parallel using 2-D mesh interconnection work (Assume p processors are available, 
+    and the original list is on Processor 0). Write the pseudocode, and then analyze the execution time (including communication time and computation time), and 
+    calculate the speedup. Please draw the picture to explain the algorithm as well if you think it is necessary.
+
+4.) Assume a sequence of 18 integers 11, 29, 21, 4, 43, 24, 52, 8, 17, 50, 45, 30, 15, 34, 54, 2, 35, 61. 
+    Write the detailed steps to sort the integers using bucket sorting (3 buckets with equal size). If there are three processors available, 
+    write the detailed steps to sort them using the parallel bucket sorting algorithm (further parallelization version) described in the textbook.
