@@ -1,0 +1,28 @@
+Recurrence Relations can be used to model many counting problems.
+
+A recurrence relation is a recursivew formula that counts the number of ways to do a procedure involving n objects in terms of the number of ways to do the procedure with 
+fewer than n objects.
+
+There are 2 types of homogenous recurrence relations.
+
+Vocab:
+Homogeneous - having similar or uniform characteristics. vs Homogenous - an outdated biological term that refers to organs or body tissues with genetic similarities.
+
+Type 1: 
+Linear Homogeneous recurrence relations with constant coefficients.
+
+                an = C1*an-1 + C2*an-2 + C3*an-3 + ... + Cr*an-r
+                
+- It is described as linear because all the terms have an exponent of 1, powers are not increasing
+- It is Homogenous because every term has an ai, that is an-1, an-2, etc.
+- It is const because C1,C2,...,Cr are constants
+
+To solve Linear Homogeneous R.R. with constant coefficients, we must have 'r' initial conditions
+  e.g., Fibonacci: an = an-1 + an-2, where a0=1, a1=1 ;= 1,1,2,3,5,8,13...
+
+Type 2:
+Inhomogeneous Recurrence Relations
+
+                an = C*an-1 + f(n), where f(n) is just some function of n
+
+- Inhomogeneous because one term has no ai, e.g., the function
