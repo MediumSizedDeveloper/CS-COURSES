@@ -9,10 +9,15 @@ for(int i = log(P,2) - 1; i >= 0; i--){
 	}
 }
 /*
+	EXAMPLE: P=8
 	1st iteration:
 	i = 2
 	PROCESSORS 0 and 4 are validated by the two if statements
 	PROCESSOR 0 will send and 4 will receive,
 	b/c (2^2+1) -1 = 2^3 -1 = 8 -1 = 7 = 0b111; 
 	PROCESSOR 4: 0b100 & 0b111 != 0; PROCESSOR 0: 0b000 & 0b111 == 0.
+	
+	Use '^', bitwise XOR, to send/receive to/from corresponding PROCESSOR(S).
+	PROCESSOR 0: 0b000 ^ 0b100 = 100 = 4, sends to PROCESSOR 4
+	PROCESSOR 4: 0b100 ^ 0b100 = 000 = 0, receives from PROCESSOR 0.
 */
