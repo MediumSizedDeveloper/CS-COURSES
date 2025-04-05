@@ -1,0 +1,85 @@
+“Design an algorithm to find the sum of n numbers in parallel using 2-D mesh interconnection work (Assume p processors are available, and the original list is on Processor 0). Write the pseudocode, and then analyze the execution time (including communication time and computation time), and calculate the speedup. Please draw the picture to explain the algorithm as well if you think it is necessary.”
+
+“Think of it as a perfectly squared matrix”
+
+**Establishing the first row**
+- Starting from P0, divide a portion of the list/problem sending to the “next”processor, in this case P1.
+- P1 will do the same thing, sending a proportional amount to P2, where P2 will repeat.
+This continues until the entire first “row” is established
+
+**The Waterfall/Establishing the following rows**
+- Each of the sqrt(P,2), e.g. P=16 “each of the 4”, processors now have a fraction, 1/sqrt(P) of n, the original list/dataset
+- Each processor will further distribute the same way, just to different processors, in this case, the +4 of the current processor. In general, the +sqrt(P)
+P0 will send n*(sqrt(P,2)-1)/P values to P4 where n is total # of values, P is # processors. As will P1 to P5, P2 to P6, etc.
+- Similar to the previous phase, we are sending a portion of our already portioned data, difference being the fraction is much smaller, e.g.; 
+
+//pseudocode
+
+/* Phase 1.1 
+	 divide dataset among first sqrt(P,2) processors
+	 e.g.; 16 processors, divide among first 4
+	 
+	 Each divided portion must be equal. By dividing
+	 proportionally to the sqrt of # processors, the
+	 portions will be equal.
+	 e.g.; first 4 will each have 1/4 of n
+	 
+	 
+*/
+
+int N,P;
+int sqrtOfP = sqrt(P,2);
+
+// DIVIDING: for the first sqrt(P,2) processors
+for(int i = 0; i < sqrtOfP-1; i++){
+	//decide who sends to who
+	if(mypid==i){
+		send (sqrtOfP-i-1)/sqrtOfP of N to mypid i+1;	
+	}
+	if(mypid==i+1){
+		receive (sqrtOfP-i-1)/sqrtOfP of N from mypid i;
+	}
+}
+
+// DIVIDING: sending "downwards" waterfall style
+for(int i = sqrtOfP; i<P; i+=sqrtOfP){
+	if(mypid>=i-sqrtOfP && mypid<i){
+		send sqrtOfP-1)/P of N to mypid + sqrtOfP;
+	}
+	if(mypid>=i && mypid<i+sqrtOfP){
+		recevice sqrtOfP-1)/P of N from mypid - sqrtOfP;
+	}
+}
+
+// FIND LOCAL SUM: compute the sent data for each processor
+for each i of local array{
+	localSum+=i;
+}
+
+// SEND LOCAL SUM TO PREVIOUS SENDER: sending "upwards" reverse waterfall
+for(int i=P-sqrtOfP; i>0; i-=sqrtOfP){
+	if(mypid>=i && mypid<i+sqrtOfP){
+		send localSum to mypid-sqrtOfP;
+	}
+	if(mypid>=i-sqrtOfP && mypid<i){
+		recevice and combine localSum from mypid+sqrtOfP;
+	}
+}
+
+// SEND LOCAL SUM TO PREVIOUS SENDER: collecting local sums of
+//firstsqrtOfP processors
+for(int i = sqrtOfP-1; i > 0; i--){
+	//decide who sends to who
+	if(mypid==i){
+		send localSum to mypid i-1;	
+	}
+	if(mypid==i-1){
+		receive and combine localSum from mypid i;
+	}
+}
+
+
+// anounce
+if(mypid==0){
+	printf("The local sum is: %d", localSum);
+}
