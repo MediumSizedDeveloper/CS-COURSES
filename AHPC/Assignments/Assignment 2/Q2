@@ -1,0 +1,37 @@
+“Develop a divide-and-conquer algorithm that finds the smallest value in a set of n values in O(logn) steps using n/2 processors. What is the time complexity?”
+
+To find the value in logn time, consider a binary tree. If there are n/2 processors, the set can be divided such that each processor has 2 values. Each processor will consider these two values, and depending on the processor, the value will either be sent/received, i.e., in the previous problem’s Tree Visual, some processors divide their lists in two, for example, P6, giving half the list to P7, and while P6 has to compute their half of the list, they are also expecting an answer, receiving from P7. Whereas in P7’s case, only computing the list and sending it back is necessary.
+
+A scenerio for this problem: P6 has a list of 4 values, sending half, 2, to P7. Both P6, P7 will identify the lesser of their respective 2 values. P6 waits to receive the lesser value from P7, and will then compare an additonal time, before sending the lesser of the two to the processor which precedes P6.
+
+The time complexity would be O(logn), as… 
+total time = (Num of steps) * (Time per Step) = O(logn) * O(1)
+
+//dividing phase
+for(int i = log(P,2) - 1; i >= 0; i--){
+	//NOTE: '&' = bitwise AND, an operator
+	if(mypid & pow(2,i) - 1 == 0){ 
+		if(mypid & pow(2,i+1) - 1 == 0){
+			send to mypid ^ pow(2,i);
+		else
+			recv from mypid ^ pow(2,i);
+
+//combining phase
+// at the end of the loop, P0 should have min
+for each layer of the tree
+	if(filter participating processors)
+		processlocal minimum
+		if(filter sending processors)
+			send minimum to preceding processor
+		else
+			receive another value to be compared
+/*
+for(int i = 0; i <= log(P,2) - 1; i++){
+	if(mypid & pow(2,i) - 1 == 0){ 
+		if(mypid & pow(2,i+1) - 1 == 0){
+			check/get smaller value
+			send to mypid ^ pow(2,i);
+		else
+			recv 
+}
+*/
