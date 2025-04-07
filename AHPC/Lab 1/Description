@@ -1,0 +1,3 @@
+part1: Print hello world while incorporating MPI initialize and finalize
+
+part2: Revise your program as hello_node.c, in which two variables nprocs and mypid are declared and will hold the value of total number of processes and identifier of calling process respectively. Then print out “Hello world from process xxx of total xxx!” What functions do you use to find the value for nprocs and mypid
