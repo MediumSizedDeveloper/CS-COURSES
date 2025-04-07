@@ -1,0 +1,7 @@
+Same concept but this time use `MPI_Bcast();` and `MPI_Reduce()` to calculate the partial sums.
+
+To start, initialize the array of 1000 integers in process 0. 
+
+Use MPI_Bcast() to allow all other processes to acces the array.
+
+Calculate the partial sum for each process corresponding to their designated section of the array.
