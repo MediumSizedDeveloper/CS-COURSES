@@ -1,5 +1,6 @@
 “Design an algorithm to find the sum of n numbers in parallel using 2-D mesh interconnection work (Assume p processors are available, and the original list is on Processor 0). Write the pseudocode, and then analyze the execution time (including communication time and computation time), and calculate the speedup. Please draw the picture to explain the algorithm as well if you think it is necessary.”
 
+**ABSTRACT**
 “Think of it as a perfectly squared matrix”
 
 **Establishing the first row**
@@ -13,8 +14,15 @@ This continues until the entire first “row” is established
 P0 will send n*(sqrt(P,2)-1)/P values to P4 where n is total # of values, P is # processors. As will P1 to P5, P2 to P6, etc.
 - Similar to the previous phase, we are sending a portion of our already portioned data, difference being the fraction is much smaller, e.g.; 
 
-//pseudocode
+**EXECUTION TIME ANALYSIS**
+COMMUNICATION TIME - “Time spent on transmitting data between processors, devices, or systems. In distributed computing, where multiple processors or computers work together, they need to share results or intermediate data. The communication time is the duration needed for this exchange, including network latency and transfer speed.”
+Startup Time + Data Transfer Time = Communication Time
 
+COMPUTATION TIME - “Time taken by a processor to perform calculations and process data. It's the actual "thinking time" required to execute tasks like arithmetic operations, logic processing, or algorithms. Computation time depends on the complexity of the task and the hardware's speed.”
+Total # of operations = Computation Time
+
+
+**PSEUDOCODE**
 /* Phase 1.1 
 	 divide dataset among first sqrt(P,2) processors
 	 e.g.; 16 processors, divide among first 4
