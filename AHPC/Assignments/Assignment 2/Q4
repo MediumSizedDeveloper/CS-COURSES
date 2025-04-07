@@ -1,0 +1,32 @@
+“Assume a sequence of 18 integers 11, 29, 21, 4, 43, 24, 52, 8, 17, 50, 45, 30, 15, 34, 54, 2, 35, 60. Write the detailed steps to sort the integers using bucket sorting (3 buckets with equal size). If there are three processors available, write the detailed steps to sort them using the parallel bucket sorting algorithm (further parallelization version) described in the textbook.”
+
+1. Divide the unordered list into 3 sections of size 18/3 or 6 integers each and assign each section to a processor. 
+    1. P0 section = {11,29,21,4,43,24}
+    2. P1 section = {52,8,17,50,45,30}
+    3. P2 section = {15,34,54,2,35,60}
+2. Each processor puts each value into one of three small buckets, locally. Each bucket is assigned a range and each value inside should be within that range.
+    1. P0
+        1. SB 1-20 = {11,4}
+        2. SB 21-40 = {29,21,24}
+        3. SB 41-60 = {43}
+    2. P1
+        1. SB 1-20 = {8,17}
+        2. SB 21-40 = {30}
+        3. SB 41-60 = {52,50,45}
+    3. P2
+        1. SB 1-20 = {15,2}
+        2. SB 21-40 = {34,35}
+        3. SB 41-60 = {54,60}
+3. Every processor also manages a large bucket, also assigned a range. Each processor will dump their small buckets into the corresponding large bucket, by sending the values in said small bucket to the processor which manages the large bucket. I.e., small buckets with a range of 21-40 are sent to the processor that manages the large bucket with the same range, 21-40.
+    1. P0
+        1. LB 1-20 = {11,4,8,17,15,2}
+    2. P1
+        1. LB 21-40 = {29,21,24,30,34}
+    3. P2
+        1. LB 41-60 = {41,52,50,45,54,60}
+4. With the large buckets populated, each of the 3 processors can sort their large buckets, and merge it all into 1 list.
+    1. LB 1-20 sorted = {2,4,8,11,15,17}
+    2. LB 21-40 sorted = {21,24,29,30,34}
+    3. LB 41-60 sorted = {41,45,50,52,54,60}
+    
+    Merged list = {2,4,8,11,15,17,21,24,29,30,34,41,45,50,52,54,60}
