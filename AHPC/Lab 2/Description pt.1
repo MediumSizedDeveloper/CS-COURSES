@@ -1,0 +1,20 @@
+Have each processor produce the partial sum of N/p (100) consecutive integer. 
+
+N - total integers (1,000)
+
+p - number of processors (10)
+
+Once every processor except for 0 finishes computing their respective 100 numbers, they will send their results to processor 0.
+
+Upon receiving each processor’s MPI_Send, processor 0 will then print a message signifying it has received the message. 
+
+Processor 0 is also tasked with summing up all the values delivered to it.
+
+**ABSTRACT**
+Key MPI functions: MPI_Comm_size(), MPI_Comm_rank(), MPI_Send(void* data, int count, MPI_Datatype datatype, int destination, int tag, MPI_Comm communicator), MPI_Recv(void* data, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm communicator, MPI_Status* status)
+
+Knowing that every processor runs the same code, we can use if statements as flags and the order of code execution to determine the actions of specific processors.
+
+For processor 0, it is to send 100 integers to their respective processors, (processor 1 is sent integers 101-200, 2: 201-300, 3:301-400…etc.), and also recieve the processors’ respective partial sums. Upon recieving them, proc 0 will print them out immediately. 
+
+Method of transportation will be an array of 1000. Where each process will iterate through and sum up their respective parts of the array
