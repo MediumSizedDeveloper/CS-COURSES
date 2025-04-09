@@ -1,1 +1,3 @@
+“Assume there are 8 processing nodes and there are 256 numbers (1, 2,..., 256) to be added. The original list is initialized at processor 0, and then is divided into two halves to broadcast level by level until the leaves are reached as shown below (each processor will have 256/8=32 numbers).
 
+After each processor receives its final sublist (32 numbers), it calculates its partial sum. The partial sums will be reduced level by level as shown below. The final sum will be obtained and printed out on processor 0.”
